@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Doce Cálculo | Calculadora de preço para doces grátis</title>
-<link rel="canonical" href="https://calculadora-preco-doces-2026.vercel.app/">
-<meta name="description" content="Descubra quanto cobrar pelos seus doces sem esquecer nenhum custo. Calculadora grátis com ingredientes, mão de obra, embalagem, taxas de maquininha e delivery e margem de lucro.">
+<title>Preço de vela aromática: quanto cobrar? Calculadora grátis</title>
+<link rel="canonical" href="https://calculadora-preco-doces-2026.vercel.app/vela-aromatica">
+<meta name="description" content="Calcule o preço da sua vela aromática com cera, essência, pavio, pote, rótulo, mão de obra e lucro. Calculadora grátis.">
 <meta name="theme-color" content="#faf6f1" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1b1411" media="(prefers-color-scheme: dark)">
-<meta property="og:title" content="Doce Cálculo | O preço certo para cada docinho">
-<meta property="og:description" content="Calculadora grátis de preço para doces. Sem cadastro.">
+<meta property="og:title" content="Preço de vela aromática: quanto cobrar? Calculadora grátis">
+<meta property="og:description" content="Calcule o preço da sua vela aromática com cera, essência, pavio, pote, rótulo, mão de obra e lucro. Calculadora grátis.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -142,11 +142,7 @@ footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);f
 .related{margin:8px 0 48px}.related h2{font-family:Fraunces,serif;font-size:1.5rem;margin:0 0 14px}.rel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}.rel-grid a{display:block;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;text-decoration:none;font-weight:600}.rel-grid a:hover{border-color:var(--accent);color:var(--accent)}.rel-grid a[aria-current]{background:var(--accent-soft);color:var(--accent);border-color:transparent}
 </style>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"Como calcular o preço de venda de um doce?","acceptedAnswer":{"@type":"Answer","text":"Some todos os custos da receita (ingredientes, embalagens, gás e mão de obra) e divida pelo rendimento para ter o custo por unidade. Depois divida esse custo por (1 − taxas% − lucro%) para chegar ao preço de venda."}},
-{"@type":"Question","name":"Qual margem de lucro usar em doces?","acceptedAnswer":{"@type":"Answer","text":"É comum trabalhar com margens entre 30% e 50% sobre o preço de venda em doces artesanais, mas compare com a concorrência da sua região e com o valor que o cliente enxerga no produto."}},
-{"@type":"Question","name":"Por que o preço do delivery precisa ser maior?","acceptedAnswer":{"@type":"Answer","text":"Os aplicativos de entrega ficam com uma parte grande de cada venda. Se você cobrar o mesmo preço do balcão, essa taxa sai do seu lucro."}}
-]}
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Quanta essência usar numa vela aromática?", "acceptedAnswer": {"@type": "Answer", "text": "É comum usar entre 6% e 10% do peso da cera, conforme a indicação do fornecedor da essência."}}, {"@type": "Question", "name": "Quantas velas rende 1 kg de cera?", "acceptedAnswer": {"@type": "Answer", "text": "Cerca de 10 velas de 100 g. A cera diminui um pouco ao derreter, então pese as velas prontas."}}, {"@type": "Question", "name": "Qual margem usar em velas?", "acceptedAnswer": {"@type": "Answer", "text": "Velas são muito compradas para presente. Margens entre 40% e 60% são comuns."}}]}
 </script>
 </head>
 <body>
@@ -162,16 +158,16 @@ footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);f
   </header>
 
   <section class="hero">
-    <span class="eyebrow">Sua receita merece valer a pena</span>
-    <h1>O preço certo para cada <em>docinho</em>.</h1>
-    <p>Descubra quanto cobrar pelos seus doces sem esquecer nenhum custo. Grátis e sem cadastro.</p>
+    <span class="eyebrow">Calculadora de vela aromática</span>
+    <h1>Quanto cobrar por <em>vela aromática</em>?</h1>
+    <p>Some cera, essência, pavios e potes, e descubra o preço certo de cada vela. Grátis e sem cadastro.</p>
   </section>
 
   <main class="app">
     <div>
       <section class="card" aria-labelledby="h-custos">
         <div class="card-h"><h2 id="h-custos">Custos da receita</h2><span class="step">Passo 1</span></div>
-        <p class="hint">Liste tudo o que você gastou para fazer a receita inteira: ingredientes, forminhas, gás.</p>
+        <p class="hint">Liste cera, essência, pavios, potes e o que mais você usar numa leva.</p>
         <div id="costs"></div>
         <button class="btn btn-soft" id="add" type="button">+ Adicionar custo</button>
       </section>
@@ -181,12 +177,12 @@ footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);f
         <p class="hint">Quanto vale o seu tempo nessa receita e quantas unidades ela rende.</p>
         <div class="grid2">
           <label class="field"><span>Mão de obra</span><div class="box"><i>R$</i><input id="labor" type="number" inputmode="decimal" min="0" step="0.01" value="25"></div></label>
-          <label class="field"><span>Rendimento</span><div class="box"><input id="yield" type="number" inputmode="numeric" min="1" step="1" value="20"><i class="after">unidades</i></div></label>
+          <label class="field"><span>Rendimento</span><div class="box"><input id="yield" type="number" inputmode="decimal" min="0.1" step="1" value="10"><i class="after">velas</i></div></label>
         </div>
         <details class="more">
           <summary>Custos extras e taxas <span class="sr">(opcional)</span></summary>
           <div class="grid2">
-            <label class="field"><span>Embalagem por unidade</span><div class="box"><i>R$</i><input id="pack" type="number" inputmode="decimal" min="0" step="0.01" value="0"></div></label>
+            <label class="field"><span>Embalagem por unidade</span><div class="box"><i>R$</i><input id="pack" type="number" inputmode="decimal" min="0" step="0.01" value="1.5"></div></label>
             <label class="field"><span>Custos fixos por unidade</span><div class="box"><i>R$</i><input id="fixed" type="number" inputmode="decimal" min="0" step="0.01" value="0"></div></label>
             <label class="field"><span>Taxa maquininha/Pix</span><div class="box"><input id="feeShop" type="number" inputmode="decimal" min="0" max="90" step="0.1" value="0"><i class="after">%</i></div></label>
             <label class="field"><span>Taxa do app de delivery</span><div class="box"><input id="feeApp" type="number" inputmode="decimal" min="0" max="90" step="0.1" value="27"><i class="after">%</i></div></label>
@@ -215,7 +211,7 @@ footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);f
           <div class="stat hl"><span>Preço no delivery</span><b id="sApp">–</b></div>
         </div>
         <label class="field" style="margin-bottom:10px"><span class="sr">Nome da receita</span>
-          <div class="box" style="background:rgba(255,255,255,.08)"><input id="recipeName" placeholder="Nome da receita (ex.: Brigadeiro gourmet)" style="color:var(--cocoa-ink)"></div>
+          <div class="box" style="background:rgba(255,255,255,.08)"><input id="recipeName" placeholder="Nome da receita (ex.: Vela de 100 g no pote)" style="color:var(--cocoa-ink)"></div>
         </label>
         <button class="btn btn-primary" id="save" type="button">Salvar esta receita</button>
         <div class="saved-msg" id="savedMsg"></div>
@@ -251,26 +247,29 @@ footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);f
   </section>
 
   <article id="como-funciona">
+    <h2>Quanto custa fazer uma vela aromática?</h2>
+<p>No exemplo, 1 kg de cera de soja rende cerca de 10 velas de 100 g em pote de vidro. Com essência, pavio, rótulo e o seu trabalho, o custo fica perto de <b>R$ 15,80 por vela</b>, e o preço sugerido passa de R$ 26.</p>
+<h2>Dicas para precificar vela aromática</h2>
+<ul><li><b>O pote costuma ser o item mais caro.</b> Comprar em quantidade ou reaproveitar potes muda muito o preço final.</li>
+<li><b>Essência de qualidade</b> faz a vela perfumar o ambiente. Economizar aqui costuma sair caro em reclamações.</li>
+<li><b>Rótulo e tampa</b> entram em embalagem por unidade.</li></ul>
     <h2>Como funciona o cálculo</h2>
-    <p>Primeiro somamos todos os custos da receita e a sua mão de obra, e dividimos pelo rendimento. Depois somamos a embalagem e os custos fixos de cada unidade. Esse é o <b>custo por unidade</b>.</p>
-    <p>Em seguida aplicamos o <b>markup divisor</b>: <code>preço = custo por unidade ÷ (1 − taxas% − margem%)</code>. Assim a taxa da maquininha ou do aplicativo e o seu lucro saem do preço final, e não do seu bolso.</p>
-
+    <p>Somamos todos os custos da receita e a sua mão de obra e dividimos pelo rendimento. Depois somamos a embalagem e os custos fixos de cada unidade. Então aplicamos o <b>markup divisor</b>: <code>preço = custo por unidade ÷ (1 − taxas% − margem%)</code>. Assim as taxas e o seu lucro saem do preço final, e não do seu bolso.</p>
+    <p><small>Os valores de exemplo são apenas referência. Troque pelos preços que você paga.</small></p>
     <h2>Perguntas frequentes</h2>
-    <h3>Como calcular o preço de venda de um doce?</h3>
-    <p>Some ingredientes, embalagens, gás e mão de obra, divida pelo rendimento e aplique o markup divisor com suas taxas e sua margem. A calculadora acima faz tudo isso na hora.</p>
-    <h3>Qual margem de lucro usar em doces?</h3>
-    <p>Em doces artesanais é comum trabalhar entre 30% e 50% sobre o preço de venda. Compare com a concorrência da sua região e com o valor que o cliente enxerga no produto.</p>
-    <h3>Por que o preço do delivery precisa ser maior?</h3>
-    <p>Porque o aplicativo fica com uma parte grande de cada venda. Cobrando o mesmo preço do balcão, essa taxa sai direto do seu lucro.</p>
-    <h3>Por que não basta multiplicar o custo por 2 ou 3?</h3>
-    <p>Essa conta ignora taxas, custos fixos e o valor da sua hora. Muita gente acha que está lucrando e na verdade está pagando para trabalhar.</p>
+    <h3>Quanta essência usar numa vela aromática?</h3>
+    <p>É comum usar entre 6% e 10% do peso da cera, conforme a indicação do fornecedor da essência.</p>
+    <h3>Quantas velas rende 1 kg de cera?</h3>
+    <p>Cerca de 10 velas de 100 g. A cera diminui um pouco ao derreter, então pese as velas prontas.</p>
+    <h3>Qual margem usar em velas?</h3>
+    <p>Velas são muito compradas para presente. Margens entre 40% e 60% são comuns.</p>
   </article>
 
 
 
   <section class="related" aria-labelledby="h-rel">
     <h2 id="h-rel">Calculadoras por produto</h2>
-    <div class="rel-grid"><a href="/" aria-current="page">Doces em geral</a><a href="/brigadeiro">Brigadeiro</a><a href="/bolo-de-pote">Bolo de pote</a><a href="/bolo-por-kg">Bolo por kg</a><a href="/cone-trufado">Cone trufado</a><a href="/marmita">Marmita</a><a href="/salgado-para-festa">Salgado para festa</a><a href="/sabonete-artesanal">Sabonete artesanal</a><a href="/vela-aromatica">Vela aromática</a></div>
+    <div class="rel-grid"><a href="/">Doces em geral</a><a href="/brigadeiro">Brigadeiro</a><a href="/bolo-de-pote">Bolo de pote</a><a href="/bolo-por-kg">Bolo por kg</a><a href="/cone-trufado">Cone trufado</a><a href="/marmita">Marmita</a><a href="/salgado-para-festa">Salgado para festa</a><a href="/sabonete-artesanal">Sabonete artesanal</a><a href="/vela-aromatica" aria-current="page">Vela aromática</a></div>
   </section>
 </div>
 <footer><div class="wrap">Doce Cálculo · calculadora gratuita · os valores são estimativas para ajudar na sua decisão.</div></footer>
@@ -281,7 +280,7 @@ footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);f
   var brl=function(v){return (isFinite(v)?v:0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})};
   var val=function(id){var v=parseFloat(String($(id).value).replace(',','.'));return isFinite(v)?v:0};
   var costs=$('costs'), KEY='doce-calculo-receitas';
-  var DEFAULTS=[['Leite condensado (3 latas)',22.5],['Chocolate e cacau',18.9],['Manteiga',8],['Forminhas e granulado',10]];
+  var DEFAULTS=[["Cera de soja (1 kg)", 45], ["Essência (50 ml)", 25], ["Pavios (10 un)", 8], ["Potes de vidro (10 un)", 40]];
 
   function renumber(){costs.querySelectorAll('.num').forEach(function(n,i){n.textContent=String(i+1).padStart(2,'0')})}
   function addCost(name,value,focus){

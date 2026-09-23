@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Doce Cálculo | Calculadora de preço para doces grátis</title>
+<meta name="description" content="Descubra quanto cobrar pelos seus doces sem esquecer nenhum custo. Calculadora grátis com ingredientes, mão de obra, embalagem, taxas de maquininha e delivery e margem de lucro.">
+<meta name="theme-color" content="#faf6f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1b1411" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="Doce Cálculo | O preço certo para cada docinho">
+<meta property="og:description" content="Calculadora grátis de preço para doces. Sem cadastro.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#faf6f1; --surface:#ffffff; --surface-2:#f4ece4; --ink:#2e211c; --muted:#7a6a62;
+  --line:#eadfd5; --accent:#c8506f; --accent-ink:#ffffff; --accent-soft:#fbe7ec;
+  --cocoa:#3b2a24; --cocoa-ink:#fdf6f0; --gold:#f2c38b; --ok:#2f855a; --danger:#b42318;
+  --radius:18px; --shadow:0 1px 2px rgba(59,42,36,.05),0 8px 24px rgba(59,42,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#1b1411;--surface:#251b17;--surface-2:#2e231e;--ink:#f5ebe4;--muted:#b3a197;--line:#3a2d27;
+  --accent:#e57d99;--accent-ink:#1b1411;--accent-soft:#3a2229;--cocoa:#0f0b09;--cocoa-ink:#fdf6f0;--shadow:none}
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.serif{font-family:Fraunces,Georgia,serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+a{color:inherit}
+
+/* header */
+.top{display:flex;align-items:center;justify-content:space-between;padding:20px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo{width:38px;height:38px;border-radius:12px;background:var(--accent);display:grid;place-items:center;color:var(--accent-ink)}
+.brand b{display:block;font-family:Fraunces,serif;font-size:1.2rem;line-height:1}
+.brand small{color:var(--muted);font-size:.78rem}
+.top nav a{font-size:.9rem;color:var(--muted);text-decoration:none;font-weight:500}
+.top nav a:hover{color:var(--ink)}
+
+/* hero */
+.hero{padding:28px 0 32px;max-width:680px}
+.eyebrow{display:inline-block;background:var(--accent-soft);color:var(--accent);font-weight:600;font-size:.8rem;padding:6px 12px;border-radius:99px;letter-spacing:.02em}
+.hero h1{font-family:Fraunces,serif;font-weight:700;font-size:clamp(2.1rem,6vw,3.4rem);line-height:1.05;margin:14px 0 12px;letter-spacing:-.01em}
+.hero h1 em{color:var(--accent);font-style:italic;font-weight:500}
+.hero p{color:var(--muted);font-size:1.08rem;margin:0}
+
+/* layout */
+.app{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;align-items:start}
+.app > *,.field,.box{min-width:0}
+@media(min-width:900px){.app{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}.sticky{position:sticky;top:20px}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+.card + .card{margin-top:20px}
+.card-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:4px}
+.card h2{font-family:Fraunces,serif;font-size:1.35rem;font-weight:700;margin:0}
+.step{font-size:.75rem;font-weight:700;color:var(--accent);letter-spacing:.08em;text-transform:uppercase}
+.hint{color:var(--muted);font-size:.9rem;margin:0 0 16px}
+
+/* cost rows */
+.cost{display:grid;grid-template-columns:34px 1fr 130px 36px;gap:10px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line)}
+.cost:last-child{border-bottom:0}
+.num{font-family:Fraunces,serif;color:var(--muted);font-size:1rem;text-align:center}
+.del{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;font-size:1.1rem;line-height:1}
+.del:hover{color:var(--danger);border-color:var(--danger)}
+@media(max-width:520px){.cost{grid-template-columns:28px 1fr 36px}.cost .money{grid-column:2/3}}
+
+/* inputs */
+.field{display:block}
+.field > span{display:block;font-size:.85rem;font-weight:600;margin-bottom:6px}
+.box{display:flex;align-items:center;background:var(--surface-2);border:1px solid transparent;border-radius:12px;transition:border-color .15s,background .15s}
+.box:focus-within{border-color:var(--accent);background:var(--surface)}
+.box i{font-style:normal;color:var(--muted);font-size:.85rem;padding:0 0 0 12px;white-space:nowrap}
+.box i.after{padding:0 12px 0 0}
+.box input{flex:1;min-width:0;border:0;background:transparent;padding:11px 12px;font:inherit;color:var(--ink);outline:none}
+input[type=number]{-moz-appearance:textfield}
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:520px){.grid2{grid-template-columns:1fr}}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;padding:11px 16px;font:inherit;font-weight:600;cursor:pointer;border:1px solid transparent;text-decoration:none}
+.btn-soft{background:var(--accent-soft);color:var(--accent)}
+.btn-primary{background:var(--accent);color:var(--accent-ink);width:100%}
+.btn-primary:hover{filter:brightness(1.05)}
+.btn-line{background:transparent;border-color:rgba(255,255,255,.25);color:inherit}
+
+details.more{margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
+details.more summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::after{content:"+";font-size:1.3rem;color:var(--accent)}
+details.more[open] summary::after{content:"–"}
+details.more .grid2{margin-top:14px}
+
+/* result */
+.result{background:var(--cocoa);color:var(--cocoa-ink);border:0}
+.result h2{color:var(--cocoa-ink)}
+.result .step{color:var(--gold)}
+.price-lbl{margin:18px 0 0;font-size:.9rem;opacity:.75}
+.price{font-family:Fraunces,serif;font-weight:700;font-size:clamp(2.8rem,9vw,3.6rem);line-height:1.05;color:var(--gold);margin:2px 0}
+.price-sub{font-size:.9rem;opacity:.75;margin:0 0 18px}
+.margin-row{background:rgba(255,255,255,.06);border-radius:14px;padding:14px}
+.margin-row .top-line{display:flex;justify-content:space-between;align-items:center;font-size:.88rem;font-weight:600}
+.margin-row output{font-family:Fraunces,serif;font-size:1.2rem;color:var(--gold)}
+input[type=range]{width:100%;accent-color:var(--gold);margin-top:8px}
+.stats{margin:16px 0;display:grid;gap:0}
+.stat{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:.93rem}
+.stat span{opacity:.75}
+.stat b{font-weight:600;font-variant-numeric:tabular-nums}
+.stat.hl b{color:var(--gold)}
+.warn{display:none;background:#fde8e7;color:var(--danger);border-radius:10px;padding:10px 12px;font-size:.88rem;margin-bottom:12px}
+.saved-msg{font-size:.85rem;text-align:center;margin-top:8px;min-height:1.2em;opacity:.85}
+.note{display:flex;gap:12px;background:var(--accent-soft);border-radius:14px;padding:14px 16px;margin-top:20px}
+.note b{display:block;margin-bottom:2px}
+.note p{margin:0;color:var(--muted);font-size:.9rem}
+
+/* saved */
+.saved-list{display:grid;gap:10px;margin-top:6px}
+.saved-item{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--surface-2);border-radius:12px;padding:12px 14px}
+.saved-item b{display:block}
+.saved-item small{color:var(--muted)}
+.saved-item .acts{display:flex;gap:6px}
+.saved-item button{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:9px;padding:7px 10px;font:inherit;font-size:.85rem;cursor:pointer}
+.empty{color:var(--muted);font-size:.9rem}
+
+/* cta + article */
+.cta{margin:48px 0;background:linear-gradient(135deg,var(--accent-soft),var(--surface));border:1px solid var(--line);border-radius:24px;padding:28px;display:grid;gap:16px}
+@media(min-width:800px){.cta{grid-template-columns:1.5fr 1fr;align-items:center}}
+.cta h2{font-family:Fraunces,serif;font-size:1.7rem;margin:0 0 8px;line-height:1.15}
+.cta p{margin:0;color:var(--muted)}
+.cta ul{margin:12px 0 0;padding-left:18px;color:var(--muted)}
+.cta .btn-primary{padding:15px 18px;font-size:1.02rem}
+.cta small{display:block;text-align:center;color:var(--muted);margin-top:8px}
+article{max-width:720px;margin:0 auto 40px}
+article h2{font-family:Fraunces,serif;font-size:1.6rem;margin:40px 0 10px}
+article h3{font-size:1.05rem;margin:22px 0 4px}
+article p,article li{color:var(--muted)}
+code{background:var(--surface-2);padding:2px 7px;border-radius:6px;font-size:.92em;color:var(--ink)}
+footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);font-size:.85rem;text-align:center}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Como calcular o preço de venda de um doce?","acceptedAnswer":{"@type":"Answer","text":"Some todos os custos da receita (ingredientes, embalagens, gás e mão de obra) e divida pelo rendimento para ter o custo por unidade. Depois divida esse custo por (1 − taxas% − lucro%) para chegar ao preço de venda."}},
+{"@type":"Question","name":"Qual margem de lucro usar em doces?","acceptedAnswer":{"@type":"Answer","text":"É comum trabalhar com margens entre 30% e 50% sobre o preço de venda em doces artesanais, mas compare com a concorrência da sua região e com o valor que o cliente enxerga no produto."}},
+{"@type":"Question","name":"Por que o preço do delivery precisa ser maior?","acceptedAnswer":{"@type":"Answer","text":"Os aplicativos de entrega ficam com uma parte grande de cada venda. Se você cobrar o mesmo preço do balcão, essa taxa sai do seu lucro."}}
+]}
+</script>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="/" aria-label="Doce Cálculo, página inicial">
+      <span class="logo" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16l-1.5 8.5a2 2 0 0 1-2 1.5h-9a2 2 0 0 1-2-1.5z"/><path d="M6 11a6 6 0 0 1 12 0"/><path d="M12 5V3"/></svg>
+      </span>
+      <span><b>Doce Cálculo</b><small>precifique com carinho</small></span>
+    </a>
+    <nav><a href="#como-funciona">Como funciona</a></nav>
+  </header>
+
+  <section class="hero">
+    <span class="eyebrow">Sua receita merece valer a pena</span>
+    <h1>O preço certo para cada <em>docinho</em>.</h1>
+    <p>Descubra quanto cobrar pelos seus doces sem esquecer nenhum custo. Grátis e sem cadastro.</p>
+  </section>
+
+  <main class="app">
+    <div>
+      <section class="card" aria-labelledby="h-custos">
+        <div class="card-h"><h2 id="h-custos">Custos da receita</h2><span class="step">Passo 1</span></div>
+        <p class="hint">Liste tudo o que você gastou para fazer a receita inteira: ingredientes, forminhas, gás.</p>
+        <div id="costs"></div>
+        <button class="btn btn-soft" id="add" type="button">+ Adicionar custo</button>
+      </section>
+
+      <section class="card" aria-labelledby="h-rend">
+        <div class="card-h"><h2 id="h-rend">Mão de obra e rendimento</h2><span class="step">Passo 2</span></div>
+        <p class="hint">Quanto vale o seu tempo nessa receita e quantas unidades ela rende.</p>
+        <div class="grid2">
+          <label class="field"><span>Mão de obra</span><div class="box"><i>R$</i><input id="labor" type="number" inputmode="decimal" min="0" step="0.01" value="25"></div></label>
+          <label class="field"><span>Rendimento</span><div class="box"><input id="yield" type="number" inputmode="numeric" min="1" step="1" value="20"><i class="after">unidades</i></div></label>
+        </div>
+        <details class="more">
+          <summary>Custos extras e taxas <span class="sr">(opcional)</span></summary>
+          <div class="grid2">
+            <label class="field"><span>Embalagem por unidade</span><div class="box"><i>R$</i><input id="pack" type="number" inputmode="decimal" min="0" step="0.01" value="0"></div></label>
+            <label class="field"><span>Custos fixos por unidade</span><div class="box"><i>R$</i><input id="fixed" type="number" inputmode="decimal" min="0" step="0.01" value="0"></div></label>
+            <label class="field"><span>Taxa maquininha/Pix</span><div class="box"><input id="feeShop" type="number" inputmode="decimal" min="0" max="90" step="0.1" value="0"><i class="after">%</i></div></label>
+            <label class="field"><span>Taxa do app de delivery</span><div class="box"><input id="feeApp" type="number" inputmode="decimal" min="0" max="90" step="0.1" value="27"><i class="after">%</i></div></label>
+          </div>
+          <p class="hint" style="margin:12px 0 0">Custos fixos por unidade: some gás, luz e internet do mês e divida pelas unidades que você vende no mês.</p>
+        </details>
+      </section>
+    </div>
+
+    <div class="sticky">
+      <section class="card result" aria-labelledby="h-res" aria-live="polite">
+        <div class="card-h"><h2 id="h-res">Resumo da precificação</h2><span class="step">Resultado</span></div>
+        <p class="price-lbl">Seu preço sugerido (por unidade)</p>
+        <div class="price" id="price">R$ 0,00</div>
+        <p class="price-sub" id="priceSub">com 40% de margem de lucro</p>
+        <div class="warn" id="warn">A soma das taxas com a margem precisa ficar abaixo de 100%.</div>
+        <div class="margin-row">
+          <label class="top-line" for="margin">Margem de lucro desejada <output id="marginOut">40%</output></label>
+          <input id="margin" type="range" min="5" max="80" step="1" value="40">
+        </div>
+        <div class="stats">
+          <div class="stat"><span>Custo total da receita</span><b id="sTotal">–</b></div>
+          <div class="stat"><span>Custo por unidade</span><b id="sUnit">–</b></div>
+          <div class="stat"><span>Lucro por unidade</span><b id="sProfit">–</b></div>
+          <div class="stat"><span>Faturamento estimado da receita</span><b id="sRev">–</b></div>
+          <div class="stat hl"><span>Preço no delivery</span><b id="sApp">–</b></div>
+        </div>
+        <label class="field" style="margin-bottom:10px"><span class="sr">Nome da receita</span>
+          <div class="box" style="background:rgba(255,255,255,.08)"><input id="recipeName" placeholder="Nome da receita (ex.: Brigadeiro gourmet)" style="color:var(--cocoa-ink)"></div>
+        </label>
+        <button class="btn btn-primary" id="save" type="button">Salvar esta receita</button>
+        <div class="saved-msg" id="savedMsg"></div>
+      </section>
+
+      <div class="note">
+        <span aria-hidden="true">✓</span>
+        <div><b>Cálculo transparente</b><p>O valor recomendado já inclui sua mão de obra, todos os custos, as taxas e a margem de lucro que você escolheu.</p></div>
+      </div>
+
+      <section class="card" aria-labelledby="h-saved" style="margin-top:20px">
+        <div class="card-h"><h2 id="h-saved">Receitas salvas</h2></div>
+        <p class="hint">Ficam guardadas só neste navegador.</p>
+        <div class="saved-list" id="savedList"></div>
+      </section>
+    </div>
+  </main>
+
+  <section class="cta" aria-labelledby="h-cta">
+    <div>
+      <h2 id="h-cta" class="serif">Tem muitos produtos? Precifique todos de uma vez.</h2>
+      <p>A <b>Planilha de Precificação Completa</b> faz o que esta calculadora faz, para todo o seu cardápio:</p>
+      <ul>
+        <li>cadastro de ingredientes com atualização automática de preços;</li>
+        <li>preço de balcão e de delivery separados;</li>
+        <li>alerta de produtos dando prejuízo e ranking dos mais lucrativos.</li>
+      </ul>
+    </div>
+    <div>
+      <a class="btn btn-primary" href="KIWIFY_LINK">Quero a planilha completa</a>
+      <small>Funciona no Excel e no Google Planilhas · acesso imediato</small>
+    </div>
+  </section>
+
+  <article id="como-funciona">
+    <h2>Como funciona o cálculo</h2>
+    <p>Primeiro somamos todos os custos da receita e a sua mão de obra, e dividimos pelo rendimento. Depois somamos a embalagem e os custos fixos de cada unidade. Esse é o <b>custo por unidade</b>.</p>
+    <p>Em seguida aplicamos o <b>markup divisor</b>: <code>preço = custo por unidade ÷ (1 − taxas% − margem%)</code>. Assim a taxa da maquininha ou do aplicativo e o seu lucro saem do preço final, e não do seu bolso.</p>
+
+    <h2>Perguntas frequentes</h2>
+    <h3>Como calcular o preço de venda de um doce?</h3>
+    <p>Some ingredientes, embalagens, gás e mão de obra, divida pelo rendimento e aplique o markup divisor com suas taxas e sua margem. A calculadora acima faz tudo isso na hora.</p>
+    <h3>Qual margem de lucro usar em doces?</h3>
+    <p>Em doces artesanais é comum trabalhar entre 30% e 50% sobre o preço de venda. Compare com a concorrência da sua região e com o valor que o cliente enxerga no produto.</p>
+    <h3>Por que o preço do delivery precisa ser maior?</h3>
+    <p>Porque o aplicativo fica com uma parte grande de cada venda. Cobrando o mesmo preço do balcão, essa taxa sai direto do seu lucro.</p>
+    <h3>Por que não basta multiplicar o custo por 2 ou 3?</h3>
+    <p>Essa conta ignora taxas, custos fixos e o valor da sua hora. Muita gente acha que está lucrando e na verdade está pagando para trabalhar.</p>
+  </article>
+</div>
+<footer><div class="wrap">Doce Cálculo · calculadora gratuita · os valores são estimativas para ajudar na sua decisão.</div></footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var brl=function(v){return (isFinite(v)?v:0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})};
+  var val=function(id){var v=parseFloat(String($(id).value).replace(',','.'));return isFinite(v)?v:0};
+  var costs=$('costs'), KEY='doce-calculo-receitas';
+  var DEFAULTS=[['Leite condensado (3 latas)',22.5],['Chocolate e cacau',18.9],['Manteiga',8],['Forminhas e granulado',10]];
+
+  function renumber(){costs.querySelectorAll('.num').forEach(function(n,i){n.textContent=String(i+1).padStart(2,'0')})}
+  function addCost(name,value,focus){
+    var row=document.createElement('div');row.className='cost';
+    row.innerHTML='<span class="num"></span>'+
+      '<label class="field"><span class="sr">Nome do custo</span><div class="box"><input class="c-name" placeholder="Nome do custo"></div></label>'+
+      '<label class="field money"><span class="sr">Valor</span><div class="box"><i>R$</i><input class="c-val" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0,00"></div></label>'+
+      '<button class="del" type="button" aria-label="Remover custo">×</button>';
+    row.querySelector('.c-name').value=name||'';
+    if(value!==undefined&&value!==null&&value!=='')row.querySelector('.c-val').value=value;
+    row.querySelector('.del').addEventListener('click',function(){row.remove();if(!costs.children.length)addCost();renumber();calc()});
+    costs.appendChild(row);renumber();
+    if(focus)row.querySelector('.c-name').focus();
+  }
+
+  var last={};
+  function calc(){
+    var total=0;
+    costs.querySelectorAll('.c-val').forEach(function(i){var v=parseFloat(i.value);if(isFinite(v))total+=v});
+    var labor=val('labor'), y=Math.max(Math.round(val('yield')),1), m=val('margin')/100;
+    var fs=val('feeShop')/100, fa=val('feeApp')/100;
+    var recipe=total+labor, unit=recipe/y+val('pack')+val('fixed');
+    $('marginOut').textContent=Math.round(m*100)+'%';
+    $('priceSub').textContent='com '+Math.round(m*100)+'% de margem de lucro'+(fs>0?' e taxa de '+(fs*100).toLocaleString('pt-BR')+'%':'');
+    $('sTotal').textContent=brl(recipe);
+    $('sUnit').textContent=brl(unit);
+    if(fs+m>=1){$('warn').style.display='block';$('price').textContent='–';$('sProfit').textContent='–';$('sRev').textContent='–';$('sApp').textContent='–';return}
+    $('warn').style.display='none';
+    var price=unit/(1-fs-m);
+    $('price').textContent=brl(price);
+    $('sProfit').textContent=brl(price*m);
+    $('sRev').textContent=brl(price*y);
+    $('sApp').textContent=(fa+m<1)?brl(unit/(1-fa-m)):'ajuste a taxa';
+    last={price:price,unit:unit};
+  }
+
+  function snapshot(){
+    return {name:$('recipeName').value.trim()||'Receita sem nome',
+      costs:Array.prototype.map.call(costs.querySelectorAll('.cost'),function(r){return [r.querySelector('.c-name').value,r.querySelector('.c-val').value]}),
+      labor:$('labor').value,yield:$('yield').value,pack:$('pack').value,fixed:$('fixed').value,
+      feeShop:$('feeShop').value,feeApp:$('feeApp').value,margin:$('margin').value,price:last.price,date:Date.now()};
+  }
+  function load(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return []}}
+  function store(list){try{localStorage.setItem(KEY,JSON.stringify(list));return true}catch(e){return false}}
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  function renderSaved(){
+    var list=load(), el=$('savedList');
+    if(!list.length){el.innerHTML='<p class="empty">Nenhuma receita salva ainda. Dê um nome e clique em "Salvar esta receita".</p>';return}
+    el.innerHTML=list.map(function(r,i){return '<div class="saved-item"><div><b>'+esc(r.name)+'</b><small>'+brl(r.price)+' por unidade</small></div><div class="acts"><button type="button" data-open="'+i+'">Abrir</button><button type="button" data-del="'+i+'" aria-label="Excluir '+esc(r.name)+'">Excluir</button></div></div>'}).join('');
+  }
+  function apply(r){
+    costs.innerHTML='';(r.costs&&r.costs.length?r.costs:[['','']]).forEach(function(c){addCost(c[0],c[1])});
+    ['labor','yield','pack','fixed','feeShop','feeApp','margin'].forEach(function(k){if(r[k]!==undefined)$(k).value=r[k]});
+    $('recipeName').value=r.name||'';calc();window.scrollTo({top:$('costs').getBoundingClientRect().top+window.scrollY-120,behavior:'smooth'});
+  }
+  $('savedList').addEventListener('click',function(e){
+    var o=e.target.getAttribute('data-open'), d=e.target.getAttribute('data-del'), list=load();
+    if(o!==null)apply(list[+o]);
+    if(d!==null){list.splice(+d,1);store(list);renderSaved()}
+  });
+  $('save').addEventListener('click',function(){
+    calc();var s=snapshot(), list=load();
+    var idx=list.findIndex(function(r){return r.name.toLowerCase()===s.name.toLowerCase()});
+    if(idx>=0)list[idx]=s;else list.unshift(s);
+    $('savedMsg').textContent=store(list)?'Receita "'+s.name+'" salva.':'Não foi possível salvar neste navegador.';
+    renderSaved();setTimeout(function(){$('savedMsg').textContent=''},3000);
+  });
+
+  $('add').addEventListener('click',function(){addCost('','',true)});
+  document.addEventListener('input',calc);
+  DEFAULTS.forEach(function(d){addCost(d[0],d[1])});
+  renderSaved();calc();
+})();
+</script>
+</body>
+</html>
